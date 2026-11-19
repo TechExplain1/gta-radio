@@ -1,0 +1,16 @@
+{
+  "name": "GTA VI Radio Dial",
+  "version": "1.0",
+  "new_install_prompt_erase": true,
+  "builds": [
+    {
+      "chipFamily": "ESP32-S3",
+      "parts": [
+        {
+          "path": "gta_radio_dial.bin",
+          "offset": 0
+        }
+      ]
+    }
+  ]
+}

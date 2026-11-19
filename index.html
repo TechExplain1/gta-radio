@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GTA VI Radio Dial: free software + setup</title>
+<meta name="description" content="Turn a smart dial into a GTA VI radio. Every music station, live from YouTube. One-click install from Chrome.">
+<script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+<style>
+  :root { --pink:#ff4fa3; --teal:#2de2e6; --bg:#0b0b14; --card:#151522; --text:#ecebf5; --dim:#9a98b3; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:radial-gradient(1200px 600px at 50% -10%, #2a1033 0%, var(--bg) 60%); color:var(--text);
+         font: 17px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 48px 20px 80px; }
+  h1 { font-size: clamp(34px, 7vw, 54px); line-height: 1.05; margin: 0 0 12px; letter-spacing: -0.02em;
+       background: linear-gradient(90deg, var(--pink), #ffb36b 50%, var(--teal)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .sub { color: var(--dim); font-size: 19px; margin: 0 0 28px; }
+  .wheel { display:grid; grid-template-columns: repeat(10, 1fr); gap: 6px; margin: 0 0 36px; }
+  .wheel img { width:100%; aspect-ratio:1; border-radius:50%; display:block; box-shadow: 0 0 0 2px #ffffff14; }
+  @media (max-width: 560px) { .wheel { grid-template-columns: repeat(5, 1fr); } }
+  section { background: var(--card); border: 1px solid #ffffff12; border-radius: 16px; padding: 22px 24px; margin: 0 0 18px; }
+  h2 { font-size: 22px; margin: 0 0 12px; display:flex; align-items:center; gap:12px; }
+  .n { flex:none; width:32px; height:32px; border-radius:50%; background: var(--pink); color:#140010; font-weight:800;
+       display:grid; place-items:center; font-size:16px; }
+  ol, ul { margin: 0; padding-left: 22px; } li { margin: 6px 0; }
+  a { color: var(--teal); }
+  .btn, esp-web-install-button button { display:inline-block; background: var(--pink); color:#140010; font-weight:800; font-size:18px;
+       padding: 14px 26px; border-radius: 999px; border:0; text-decoration:none; cursor:pointer; margin-top: 8px; }
+  .btn:hover, esp-web-install-button button:hover { filter: brightness(1.1); }
+  .note { color: var(--dim); font-size: 15px; margin-top: 10px; }
+  code { background:#ffffff14; padding: 1px 6px; border-radius: 6px; }
+  .warn { color:#ffcf6b; }
+  details { margin: 10px 0; } summary { cursor:pointer; font-weight:600; }
+  footer { color: var(--dim); font-size: 13px; margin-top: 30px; line-height: 1.5; }
+</style>
+</head>
+<body>
+<main>
+  <h1>GTA VI Radio Dial</h1>
+  <p class="sub">Twist a real dial to flip through all 20 music stations from GTA VI, playing live from YouTube on whatever speakers your computer is connected to. Static between stations included.</p>
+
+  <div class="wheel"><img src="logos/flash_fm.jpg" alt="Flash FM" title="Flash FM" loading="lazy"><img src="logos/vcrr.jpg" alt="VCRR" title="VCRR" loading="lazy"><img src="logos/cocoteo_fm.jpg" alt="Cocoteo FM" title="Cocoteo FM" loading="lazy"><img src="logos/dirty_south_classics.jpg" alt="Dirty South Classics" title="Dirty South Classics" loading="lazy"><img src="logos/back_country_radio.jpg" alt="Back Country Radio" title="Back Country Radio" loading="lazy"><img src="logos/afrobank_fm.jpg" alt="AfroBank FM" title="AfroBank FM" loading="lazy"><img src="logos/the_chamber_106_6.jpg" alt="The Chamber 106.6" title="The Chamber 106.6" loading="lazy"><img src="logos/circoloco_records_radio.jpg" alt="CircoLoco Records Radio" title="CircoLoco Records Radio" loading="lazy"><img src="logos/v_rock.jpg" alt="V-Rock" title="V-Rock" loading="lazy"><img src="logos/vice_city_fm.jpg" alt="Vice City FM" title="Vice City FM" loading="lazy"><img src="logos/emotion_98_3.jpg" alt="Emotion 98.3" title="Emotion 98.3" loading="lazy"><img src="logos/honey_fm.jpg" alt="Honey FM" title="Honey FM" loading="lazy"><img src="logos/radio_la_ola.jpg" alt="Radio La Ola" title="Radio La Ola" loading="lazy"><img src="logos/stockyard_fm.jpg" alt="Stockyard FM" title="Stockyard FM" loading="lazy"><img src="logos/worldwide_fm.jpg" alt="Worldwide FM" title="Worldwide FM" loading="lazy"><img src="logos/radio_on_u.jpg" alt="Radio On-U" title="Radio On-U" loading="lazy"><img src="logos/leonida_jazz_radio.jpg" alt="Leonida Jazz Radio" title="Leonida Jazz Radio" loading="lazy"><img src="logos/gloriana_blues_radio.jpg" alt="Gloriana Blues Radio" title="Gloriana Blues Radio" loading="lazy"><img src="logos/kaleidoscope_fm.jpg" alt="Kaleidoscope FM" title="Kaleidoscope FM" loading="lazy"><img src="logos/symphony_fm.jpg" alt="Symphony FM" title="Symphony FM" loading="lazy"></div>
+
+  <section>
+    <h2><span class="n">1</span>Get the dial</h2>
+    <p>It's a 1.28" round-screen smart dial with an ESP32-S3 chip inside. It comes fully assembled: no soldering, no wiring.</p>
+    <a class="btn" href="https://link.amazon/B0iByHbLe" target="_blank" rel="noopener sponsored">Buy the dial</a>
+    <p class="note">Get this exact one. Lookalike knobs from other brands are wired differently and won't run the software.
+      You'll also need a USB-C cable that carries data (not a charge-only one) and a computer with Chrome or Edge.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">2</span>Install the software</h2>
+    <ol>
+      <li>Plug the dial into your computer with the USB-C cable.</li>
+      <li>Click <b>Install</b>, pick the dial in the list that pops up, and confirm.</li>
+      <li>Wait about a minute until it says it's done, then unplug the dial.</li>
+    </ol>
+    <esp-web-install-button manifest="manifest.json">
+      <button slot="activate">Install</button>
+      <span slot="unsupported"><p class="warn">Open this page in <b>Chrome or Edge on a computer</b> to install. Phones and Safari can't do it.</p></span>
+      <span slot="not-allowed"><p class="warn">This page has to be opened over https to install.</p></span>
+    </esp-web-install-button>
+    <p class="note">Nothing shows up in the list? Try a different USB-C cable (many only charge), or a different USB port on your computer.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">3</span>Connect it to your Wi-Fi</h2>
+    <ol>
+      <li>Power the dial from anything USB: a phone charger, a power bank, your computer.</li>
+      <li>The screen says <b>join Wi-Fi GTA-Radio-Setup</b>. Join that network on your phone.</li>
+      <li>A setup page pops up (if it doesn't, open <code>192.168.4.1</code>). Tap <b>Configure WiFi</b>, pick your home Wi-Fi, enter the password, and save.</li>
+    </ol>
+    <p class="note">Your Wi-Fi has to be <b>2.4 GHz</b> (if your router shows two names, use the one without "5G"). Guest networks and networks with a sign-in page usually won't work.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">4</span>Turn on the radio</h2>
+    <ol>
+      <li>On a computer on the <b>same Wi-Fi</b>, open <a href="http://gta-radio.local" target="_blank" rel="noopener"><code>http://gta-radio.local</code></a> in Chrome. Type the name, not the dial's IP address: YouTube won't play from an IP address.</li>
+      <li>Click <b>Turn on the radio</b> and leave the tab open.</li>
+      <li><b>Twist</b> to change stations. <b>Press</b> to mute. <b>Hold for 2 seconds</b> to show the address again.</li>
+    </ol>
+    <p class="note">The dial can live anywhere in the house. The sound comes out of the computer, so plug that into your speakers or sound system.</p>
+  </section>
+
+  <section>
+    <h2>Troubleshooting</h2>
+    <details><summary>The page won't load, or loads halfway</summary>
+      <p>Unplug the dial for a few seconds, plug it back in, wait for the logo, then reload the page. Make sure the computer is on the same Wi-Fi as the dial.</p></details>
+    <details><summary>gta-radio.local doesn't open at all</summary>
+      <p>Some networks block device names. Use Chrome, and check that the computer isn't on a VPN. On Windows, make sure the network is set to Private.</p></details>
+    <details><summary>Moving it to a different Wi-Fi</summary>
+      <p>Unplug it, hold the knob down while you plug it back in, and keep holding until it shows the setup screen. Then repeat step 3.</p></details>
+    <details><summary>A station skips songs</summary>
+      <p>Some YouTube videos don't allow playing outside YouTube, so the radio skips them. We update the song lists online, so your dial picks up fixes automatically.</p></details>
+  </section>
+
+  <footer>
+    <p>Made by Tech.Explain. Free fan project, not affiliated with or endorsed by Rockstar Games or Take-Two Interactive. GTA, Grand Theft Auto and the station names and logos belong to their owners. Music plays through YouTube's official player; no audio is included in this download.</p>
+    <p>Affiliate disclosure: the "Buy the dial" link is an affiliate link. If you buy through it we may earn a small commission at no extra cost to you.</p>
+  </footer>
+</main>
+</body>
+</html>
